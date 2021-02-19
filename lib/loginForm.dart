@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'login.dart';
 import 'profile.dart';
 
@@ -15,6 +18,11 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController emailController = new TextEditingController();
   TextEditingController passwordController = new TextEditingController();
   final formKey = new GlobalKey<FormState>();
+
+  Future<List> getData() async {
+    final response = await http.get("https://apihexagonapp.000webhostapp.com/list_user.php");
+    return json.decode(response.body);
+  }
 
   @override
   Widget build(BuildContext context) {
